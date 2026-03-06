@@ -126,7 +126,7 @@ def main(module_filter: str = MODULE_FILTER) -> None:
 
     # --- Fetch and extract ---
     session = requests.Session()
-    session.headers["User-Agent"] = "mathlib-atlas/1.0"
+    session.headers["User-Agent"] = "mathlib-metaanalysis/1.0"
 
     rows: list[dict] = []
     missing_files = []

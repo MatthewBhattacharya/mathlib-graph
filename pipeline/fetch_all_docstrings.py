@@ -86,7 +86,7 @@ def main() -> None:
 
     # ── Fetch files and extract docstrings ────────────────────────────────
     session = requests.Session()
-    session.headers["User-Agent"] = "mathlib-atlas/1.0"
+    session.headers["User-Agent"] = "mathlib-metaanalysis/1.0"
 
     pending: list[tuple[str, str]] = []
     fetch_errors = 0

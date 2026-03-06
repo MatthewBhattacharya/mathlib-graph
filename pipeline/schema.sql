@@ -1,4 +1,4 @@
--- Mathlib Atlas DuckDB Schema
+-- Mathlib Metaanalysis DuckDB Schema
 
 CREATE TABLE IF NOT EXISTS declarations (
     name         TEXT PRIMARY KEY,   -- e.g. 'Nat.add_comm'
