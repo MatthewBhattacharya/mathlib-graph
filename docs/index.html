@@ -139,15 +139,6 @@
     .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--navy); }
     .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
-    /* ── Unique badge ── */
-    .unique-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: #fef3c7; color: #92400e;
-      font-size: 0.72rem; font-weight: 700; letter-spacing: .5px;
-      padding: 2px 8px; border-radius: 4px; margin-left: 8px;
-      vertical-align: middle;
-    }
-
     /* ── Pipeline diagram ── */
     .pipeline {
       display: flex; align-items: center; flex-wrap: wrap;
@@ -312,7 +303,7 @@
   <div class="hero-tag">Open Research · Lean 4 · Formal Mathematics</div>
   <h1>A Statistical Atlas of<br><em>Formal Mathematics</em></h1>
   <p>
-    The first large-scale empirical analysis of the Lean 4 Mathlib proof library —
+    A large-scale empirical analysis of the Lean 4 Mathlib proof library —
     mapping 738,000 mathematical declarations and 387,000 proof dependencies into
     a queryable knowledge graph.
   </p>
@@ -412,22 +403,21 @@
   </div>
 
   <div class="callout">
-    <strong>What makes this unique:</strong> Prior work (LeanDojo, Mathlib4Lean) treats each theorem
-    in isolation. We are the first to construct the full transitive dependency graph across
-    all of Mathlib, join it with docstrings and source positions, and perform statistical
-    analyses comparing named vs. unnamed theorems at scale.
+    We construct the full transitive dependency graph across all of Mathlib, join it with
+    docstrings and source positions from GitHub, and run statistical analyses comparing
+    named vs. unnamed theorems — all without requiring a Lean installation.
   </div>
 
   <div class="card-grid card-grid-2" style="margin-top: 1.5rem;">
     <div class="card">
-      <h3>Graph Metrics <span class="unique-badge">★ Novel</span></h3>
+      <h3>Graph Metrics</h3>
       <p>For each theorem we compute: <strong>in-degree</strong> (how many proofs cite it),
         <strong>out-degree</strong> (how many lemmas it uses),
         <strong>hub score</strong> (in × out), BFS depth, and longest dependency chain via
         Kahn's topological DP.</p>
     </div>
     <div class="card">
-      <h3>Named Theorem Detection <span class="unique-badge">★ Novel</span></h3>
+      <h3>Named Theorem Detection</h3>
       <p>Two independent signals: (1) <span class="chip chip-doc">doc</span> bold <code>**...**</code>
         markup in docstrings, (2) <span class="chip chip-id">id</span> camelCase/underscore
         decomposition against ~90 mathematician names. Combined: 6,056 named theorems identified.</p>
@@ -613,7 +603,6 @@
   <!-- Effect sizes -->
   <h3 style="margin: 2rem 0 0.5rem; font-size: 1rem; color: var(--navy);">
     Statistical Effect Sizes: Named vs. Unnamed Theorems
-    <span class="unique-badge">★ Novel result</span>
   </h3>
   <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem;">
     Rank-biserial correlation <em>r</em> from Mann-Whitney U tests. Positive = named theorems
