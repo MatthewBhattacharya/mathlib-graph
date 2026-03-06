@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathlib Atlas — A Statistical Atlas of Formal Mathematics</title>
+  <style>
+    :root {
+      --navy:   #0f1f3d;
+      --blue:   #1a56db;
+      --teal:   #0891b2;
+      --orange: #d97706;
+      --green:  #059669;
+      --red:    #dc2626;
+      --purple: #7c3aed;
+      --bg:     #f8fafc;
+      --card:   #ffffff;
+      --border: #e2e8f0;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --code-bg:#f1f5f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      border-bottom: 2px solid #1e3a6e;
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      color: #fff; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .nav-brand span { color: #60a5fa; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: #94a3b8; text-decoration: none; font-size: 0.88rem;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1e3a6e 60%, #1e4a8e 100%);
+      color: #fff;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block; background: rgba(96,165,250,.15);
+      border: 1px solid rgba(96,165,250,.35);
+      color: #93c5fd; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .hero h1 em { color: #60a5fa; font-style: normal; }
+    .hero p {
+      max-width: 680px; margin: 0 auto 2.5rem;
+      font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;
+    }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: all .15s;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-ghost {
+      background: rgba(255,255,255,.08); color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.14); }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: center; flex-wrap: wrap;
+    }
+    .stat-item {
+      padding: 1.5rem 2.5rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-n {
+      font-size: 2rem; font-weight: 800; color: var(--navy);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .stat-n span { color: var(--blue); }
+    .stat-l { font-size: 0.78rem; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* ── Section layout ── */
+    .section { padding: 4.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-alt { background: #fff; }
+    .section-alt > * { max-width: 1100px; margin: 0 auto; padding: 4.5rem 2rem; }
+
+    .section-tag {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800;
+      letter-spacing: -0.5px; margin-bottom: 0.75rem; color: var(--navy);
+    }
+    .lead {
+      font-size: 1.05rem; color: var(--muted); max-width: 720px;
+      margin-bottom: 2.5rem; line-height: 1.7;
+    }
+
+    /* ── Cards ── */
+    .card-grid { display: grid; gap: 1.25rem; }
+    .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .card-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--navy); }
+    .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Unique badge ── */
+    .unique-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fef3c7; color: #92400e;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .5px;
+      padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ── Pipeline diagram ── */
+    .pipeline {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: 0; margin: 2rem 0;
+    }
+    .pipe-step {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      flex: 1; min-width: 160px;
+      text-align: center;
+    }
+    .pipe-step .ps-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .pipe-step .ps-title { font-size: 0.85rem; font-weight: 700; color: var(--navy); }
+    .pipe-step .ps-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .pipe-arrow {
+      font-size: 1.4rem; color: var(--blue); padding: 0 0.5rem; flex-shrink: 0;
+    }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.87rem; background: var(--card);
+    }
+    thead tr { background: #f1f5f9; border-bottom: 2px solid var(--border); }
+    th {
+      padding: 10px 14px; text-align: left;
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--muted); white-space: nowrap;
+    }
+    td { padding: 9px 14px; border-top: 1px solid #f1f5f9; white-space: nowrap; }
+    tr:hover td { background: #f8fafc; }
+    .td-name { color: var(--blue); font-weight: 600; font-family: monospace; font-size: 0.84rem; }
+    .td-right { text-align: right; }
+    .td-bold { font-weight: 700; }
+
+    /* ── Kind chips ── */
+    .chip {
+      display: inline-block; padding: 1px 7px; border-radius: 10px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+    .chip-thm  { background: #dbeafe; color: #1d4ed8; }
+    .chip-def  { background: #dcfce7; color: #166534; }
+    .chip-unk  { background: #f1f5f9; color: #475569; }
+    .chip-axm  { background: #fce7f3; color: #9d174d; }
+    .chip-doc  { background: #fee2e2; color: #991b1b; }
+    .chip-id   { background: #ede9fe; color: #5b21b6; }
+
+    /* ── Bar charts (CSS) ── */
+    .bar-chart { margin: 1rem 0; }
+    .bar-row {
+      display: flex; align-items: center; gap: 10px;
+      margin: 5px 0; font-size: 0.83rem;
+    }
+    .bar-label { width: 130px; color: var(--muted); text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; background: #f1f5f9; border-radius: 4px; height: 18px; }
+    .bar-fill  { height: 18px; border-radius: 4px; min-width: 4px; }
+    .bar-val   { width: 50px; font-weight: 600; color: var(--navy); flex-shrink: 0; }
+
+    /* ── Results callout ── */
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: #eff6ff; border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.92rem; color: #1e3a6e;
+    }
+    .callout strong { color: var(--navy); }
+
+    /* ── Essay placeholder ── */
+    .essay-box {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+      border: 1px solid #c7d7fe;
+      border-radius: 12px; padding: 2rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .essay-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .essay-box h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .essay-box p { font-size: 0.9rem; color: #3730a3; line-height: 1.65; }
+    .essay-box a.btn { margin-top: 1rem; }
+
+    /* ── Effect size viz ── */
+    .effect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .effect-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem; text-align: center;
+    }
+    .effect-r {
+      font-size: 2.2rem; font-weight: 800; line-height: 1;
+      margin-bottom: 4px;
+    }
+    .effect-pos { color: var(--green); }
+    .effect-neg { color: var(--red); }
+    .effect-metric { font-size: 0.8rem; color: var(--muted); }
+    .effect-sig { font-size: 0.75rem; color: var(--orange); font-weight: 700; margin-top: 4px; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy); color: #94a3b8;
+      text-align: center; padding: 2.5rem 1rem;
+      font-size: 0.85rem; line-height: 1.7;
+    }
+    footer a { color: #60a5fa; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .stat-item { padding: 1rem 1.25rem; }
+      .pipe-arrow { display: none; }
+      .pipe-step { min-width: 140px; }
+    }
+
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── Tabs (pure CSS via hidden radio) ── */
+    .tabs input[type=radio] { display: none; }
+    .tab-labels { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 1.5rem; }
+    .tab-label {
+      padding: 8px 18px; font-size: 0.87rem; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: color .15s;
+    }
+    .tab-label:hover { color: var(--navy); }
+    .tab-content { display: none; }
+    #tab1:checked ~ .tab-labels label[for=tab1],
+    #tab2:checked ~ .tab-labels label[for=tab2],
+    #tab3:checked ~ .tab-labels label[for=tab3] {
+      color: var(--blue); border-bottom-color: var(--blue);
+    }
+    #tab1:checked ~ .tab-contents #content1,
+    #tab2:checked ~ .tab-contents #content2,
+    #tab3:checked ~ .tab-contents #content3 { display: block; }
+
+    code {
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════ NAV -->
+<nav>
+  <a class="nav-brand" href="#"><span>Mathlib</span> Atlas</a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#methods">Methods</a></li>
+    <li><a href="#importance">Importance</a></li>
+    <li><a href="#named">Named Theorems</a></li>
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#essay">Essay</a></li>
+    <li><a href="https://github.com/MatthewBhattacharya/mathlib-atlas" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════ HERO -->
+<section class="hero" id="overview">
+  <div class="hero-tag">Open Research · Lean 4 · Formal Mathematics</div>
+  <h1>A Statistical Atlas of<br><em>Formal Mathematics</em></h1>
+  <p>
+    The first large-scale empirical analysis of the Lean 4 Mathlib proof library —
+    mapping 738,000 mathematical declarations and 387,000 proof dependencies into
+    a queryable knowledge graph.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#importance">Explore Results ↓</a>
+    <a class="btn btn-ghost" href="https://github.com/MatthewBhattacharya/mathlib-atlas" target="_blank">View Source on GitHub</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-n">738<span>K</span></div>
+    <div class="stat-l">Mathematical declarations</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">387<span>K</span></div>
+    <div class="stat-l">Proof dependency edges</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">43<span>K</span></div>
+    <div class="stat-l">Docstrings harvested</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">6<span>,056</span></div>
+    <div class="stat-l">Named theorems identified</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">20<span>+</span></div>
+    <div class="stat-l">Mathematical areas covered</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ WHAT IS THIS -->
+<div class="section-alt">
+<div>
+  <div class="section-tag">Background</div>
+  <h2>What is Mathlib Atlas?</h2>
+  <p class="lead">
+    Mathlib is the world's largest library of formally verified mathematics, written in Lean 4.
+    Every theorem in Mathlib has been checked by a proof assistant down to foundational axioms —
+    making it a uniquely trustworthy dataset for studying how mathematics is actually structured.
+  </p>
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Proof Dependency Graph</h3>
+      <p>Each theorem that uses another creates a directed edge. We construct the complete DAG of 387K edges, enabling graph-theoretic analysis of mathematical structure.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Statistical Analysis</h3>
+      <p>We compute in-degree, out-degree, hub scores, longest dependency chains, and BFS depths — then correlate these with proof complexity metrics.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏷️</div>
+      <h3>Named Theorem Detection</h3>
+      <p>We identify theorems named after mathematicians using two independent signals: docstring bold-markup and camelCase identifier decomposition against a curated name list.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ METHODS -->
+<section class="section" id="methods">
+  <div class="section-tag">Methods</div>
+  <h2>Data Pipeline</h2>
+  <p class="lead">
+    No Lean installation required. We combine two public datasets into a single DuckDB
+    knowledge base, then run the entire analysis in Python.
+  </p>
+
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="ps-icon">🤗</div>
+      <div class="ps-title">HuggingFace</div>
+      <div class="ps-sub">mathlib-types<br>713K rows, Parquet</div>
+    </div>
+    <div class="pipe-arrow">+</div>
+    <div class="pipe-step">
+      <div class="ps-icon">🗃️</div>
+      <div class="ps-title">LeanDojo</div>
+      <div class="ps-sub">Zenodo corpus.jsonl<br>premises → edges</div>
+    </div>
+    <div class="pipe-arrow">+</div>
+    <div class="pipe-step">
+      <div class="ps-icon">🐙</div>
+      <div class="ps-title">GitHub Raw</div>
+      <div class="ps-sub">Docstring extraction<br>at commit hash</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step" style="border-color: var(--blue); border-width: 2px;">
+      <div class="ps-icon">🦆</div>
+      <div class="ps-title">DuckDB Atlas</div>
+      <div class="ps-sub">mathlib.db<br>738K decl · 387K edges</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>What makes this unique:</strong> Prior work (LeanDojo, Mathlib4Lean) treats each theorem
+    in isolation. We are the first to construct the full transitive dependency graph across
+    all of Mathlib, join it with docstrings and source positions, and perform statistical
+    analyses comparing named vs. unnamed theorems at scale.
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Graph Metrics <span class="unique-badge">★ Novel</span></h3>
+      <p>For each theorem we compute: <strong>in-degree</strong> (how many proofs cite it),
+        <strong>out-degree</strong> (how many lemmas it uses),
+        <strong>hub score</strong> (in × out), BFS depth, and longest dependency chain via
+        Kahn's topological DP.</p>
+    </div>
+    <div class="card">
+      <h3>Named Theorem Detection <span class="unique-badge">★ Novel</span></h3>
+      <p>Two independent signals: (1) <span class="chip chip-doc">doc</span> bold <code>**...**</code>
+        markup in docstrings, (2) <span class="chip chip-id">id</span> camelCase/underscore
+        decomposition against ~90 mathematician names. Combined: 6,056 named theorems identified.</p>
+    </div>
+    <div class="card">
+      <h3>Docstring Harvesting</h3>
+      <p>We fetch raw Lean source files from GitHub at a fixed commit hash, parse
+        <code>/-- ... -/</code> docstring blocks using source line positions from the
+        <code>lean_source</code> table. 43,480 docstrings collected across all of Mathlib.</p>
+    </div>
+    <div class="card">
+      <h3>Statistical Testing</h3>
+      <p>Mann-Whitney U tests (non-parametric) with rank-biserial correlation as effect size.
+        Compares named vs. unnamed theorems across in-degree, out-degree, tactic step count,
+        and code line count.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════════════════════════════════════════ IMPORTANCE -->
+<div class="section-alt" id="importance">
+<div>
+  <div class="section-tag">Results · Theorem Importance</div>
+  <h2>Most Cited Theorems in Mathlib</h2>
+  <p class="lead">
+    In-degree (the number of other proofs that directly depend on a theorem) is the
+    most direct proxy for mathematical importance within a formal library.
+    The rankings reveal which algebraic identities and logical primitives form the
+    true backbone of modern mathematics.
+  </p>
+
+  <div class="callout">
+    <strong>mul_comm</strong> (commutativity of multiplication) is cited by
+    <strong>1,462</strong> other proofs — more than any other result in all of Mathlib.
+    The top 5 are all basic ring axioms, appearing more often than any named theorem
+    like Cauchy's or Fermat's.
+  </div>
+
+  <div class="tabs">
+    <input type="radio" name="imp-tabs" id="tab1" checked>
+    <input type="radio" name="imp-tabs" id="tab2">
+    <input type="radio" name="imp-tabs" id="tab3">
+    <div class="tab-labels">
+      <label class="tab-label" for="tab1">Top 30 by In-degree</label>
+      <label class="tab-label" for="tab2">Primitive Concepts</label>
+      <label class="tab-label" for="tab3">Cross-module Flows</label>
+    </div>
+    <div class="tab-contents">
+      <div class="tab-content" id="content1">
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
+          Declarations cited by the most other proofs. Includes all kinds (theorems, defs, instances).
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Name</th><th>Kind</th><th>Area</th><th class="td-right">In-degree</th>
+            </tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-name">mul_comm</td><td><span class="chip chip-thm">theorem</span></td><td>Algebra</td><td class="td-right td-bold">1,462</td></tr>
+              <tr><td>2</td><td class="td-name">mul_assoc</td><td><span class="chip chip-thm">theorem</span></td><td>Algebra</td><td class="td-right td-bold">1,267</td></tr>
+              <tr><td>3</td><td class="td-name">mul_one</td><td><span class="chip chip-thm">theorem</span></td><td>Algebra</td><td class="td-right td-bold">1,171</td></tr>
+              <tr><td>4</td><td class="td-name">Set.range</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right td-bold">1,055</td></tr>
+              <tr><td>5</td><td class="td-name">one_mul</td><td><span class="chip chip-thm">theorem</span></td><td>Algebra</td><td class="td-right td-bold">1,015</td></tr>
+              <tr><td>6</td><td class="td-name">add_comm</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">950</td></tr>
+              <tr><td>7</td><td class="td-name">le_antisymm</td><td><span class="chip chip-thm">theorem</span></td><td>Order</td><td class="td-right">814</td></tr>
+              <tr><td>8</td><td class="td-name">Fintype.card</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">810</td></tr>
+              <tr><td>9</td><td class="td-name">LE.le.trans</td><td><span class="chip chip-unk">unknown</span></td><td>Order</td><td class="td-right">699</td></tr>
+              <tr><td>10</td><td class="td-name">CategoryTheory.Category.assoc</td><td><span class="chip chip-unk">unknown</span></td><td>CategoryTheory</td><td class="td-right">695</td></tr>
+              <tr><td>11</td><td class="td-name">Set.univ</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">692</td></tr>
+              <tr><td>12</td><td class="td-name">MulZeroClass.mul_zero</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">644</td></tr>
+              <tr><td>13</td><td class="td-name">zero_add</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">634</td></tr>
+              <tr><td>14</td><td class="td-name">add_zero</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">616</td></tr>
+              <tr><td>15</td><td class="td-name">Set</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">599</td></tr>
+              <tr><td>16</td><td class="td-name">le_rfl</td><td><span class="chip chip-thm">theorem</span></td><td>Order</td><td class="td-right">598</td></tr>
+              <tr><td>17</td><td class="td-name">sub_eq_add_neg</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">582</td></tr>
+              <tr><td>18</td><td class="td-name">le_trans</td><td><span class="chip chip-thm">theorem</span></td><td>Order</td><td class="td-right">565</td></tr>
+              <tr><td>19</td><td class="td-name">eq_or_ne</td><td><span class="chip chip-thm">theorem</span></td><td>Logic</td><td class="td-right">559</td></tr>
+              <tr><td>20</td><td class="td-name">MulZeroClass.zero_mul</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">530</td></tr>
+              <tr><td>21</td><td class="td-name">Set.mem_setOf_eq</td><td><span class="chip chip-thm">theorem</span></td><td>Data</td><td class="td-right">518</td></tr>
+              <tr><td>22</td><td class="td-name">div_eq_mul_inv</td><td><span class="chip chip-thm">theorem</span></td><td>Algebra</td><td class="td-right">493</td></tr>
+              <tr><td>23</td><td class="td-name">smul_eq_mul</td><td><span class="chip chip-thm">lemma</span></td><td>Algebra</td><td class="td-right">486</td></tr>
+              <tr><td>24</td><td class="td-name">add_assoc</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">444</td></tr>
+              <tr><td>25</td><td class="td-name">algebraMap</td><td><span class="chip chip-def">def</span></td><td>Algebra</td><td class="td-right">437</td></tr>
+              <tr><td>26</td><td class="td-name">one_smul</td><td><span class="chip chip-thm">lemma</span></td><td>Algebra</td><td class="td-right">435</td></tr>
+              <tr><td>27</td><td class="td-name">LT.lt.le</td><td><span class="chip chip-unk">unknown</span></td><td>Order</td><td class="td-right">416</td></tr>
+              <tr><td>28</td><td class="td-name">ENNReal.ofReal</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">416</td></tr>
+              <tr><td>29</td><td class="td-name">CategoryTheory.Category.comp_id</td><td><span class="chip chip-unk">unknown</span></td><td>CategoryTheory</td><td class="td-right">406</td></tr>
+              <tr><td>30</td><td class="td-name">le_of_lt</td><td><span class="chip chip-thm">theorem</span></td><td>Order</td><td class="td-right">379</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="content2">
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
+          <strong>Primitive concepts</strong> are declarations with no outgoing dependency edges —
+          leaves of the DAG. Despite having nothing beneath them, many are cited thousands of times.
+          These are the true axioms and automation-closed lemmas that underpin all of Mathlib.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Name</th><th>Kind</th><th>Area</th><th class="td-right">In-degree</th>
+            </tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-name">Eq.symm</td><td><span class="chip chip-thm">theorem</span></td><td>Prelude</td><td class="td-right td-bold">1,730</td></tr>
+              <tr><td>2</td><td class="td-name">Iff.rfl</td><td><span class="chip chip-thm">theorem</span></td><td>Core</td><td class="td-right td-bold">1,413</td></tr>
+              <tr><td>3</td><td class="td-name">Function.Injective</td><td><span class="chip chip-thm">theorem</span></td><td>Data</td><td class="td-right td-bold">1,268</td></tr>
+              <tr><td>4</td><td class="td-name">Set.range</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right td-bold">1,055</td></tr>
+              <tr><td>5</td><td class="td-name">add_comm</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">950</td></tr>
+              <tr><td>6</td><td class="td-name">Fintype.card</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">810</td></tr>
+              <tr><td>7</td><td class="td-name">Or.inl</td><td><span class="chip chip-thm">theorem</span></td><td>Prelude</td><td class="td-right">802</td></tr>
+              <tr><td>8</td><td class="td-name">Function.comp_apply</td><td><span class="chip chip-thm">theorem</span></td><td>Core</td><td class="td-right">801</td></tr>
+              <tr><td>9</td><td class="td-name">Or.inr</td><td><span class="chip chip-thm">theorem</span></td><td>Prelude</td><td class="td-right">760</td></tr>
+              <tr><td>10</td><td class="td-name">eq_comm</td><td><span class="chip chip-thm">theorem</span></td><td>Core</td><td class="td-right">701</td></tr>
+              <tr><td>11</td><td class="td-name">LE.le.trans</td><td><span class="chip chip-unk">unknown</span></td><td>Order</td><td class="td-right">699</td></tr>
+              <tr><td>12</td><td class="td-name">CategoryTheory.Category.assoc</td><td><span class="chip chip-unk">unknown</span></td><td>CategoryTheory</td><td class="td-right">695</td></tr>
+              <tr><td>13</td><td class="td-name">Set.univ</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">692</td></tr>
+              <tr><td>14</td><td class="td-name">congr_arg</td><td><span class="chip chip-unk">unknown</span></td><td>Logic</td><td class="td-right">680</td></tr>
+              <tr><td>15</td><td class="td-name">Iff.mp</td><td><span class="chip chip-thm">theorem</span></td><td>Core</td><td class="td-right">655</td></tr>
+              <tr><td>16</td><td class="td-name">MulZeroClass.mul_zero</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">644</td></tr>
+              <tr><td>17</td><td class="td-name">zero_add</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">634</td></tr>
+              <tr><td>18</td><td class="td-name">Ne</td><td><span class="chip chip-thm">theorem</span></td><td>Core</td><td class="td-right">627</td></tr>
+              <tr><td>19</td><td class="td-name">add_zero</td><td><span class="chip chip-unk">unknown</span></td><td>Algebra</td><td class="td-right">616</td></tr>
+              <tr><td>20</td><td class="td-name">Set</td><td><span class="chip chip-def">def</span></td><td>Data</td><td class="td-right">599</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.75rem;">
+          644,656 of 738,240 declarations (87%) are primitive in this sense —
+          proved by automation (<code>omega</code>, <code>simp</code>, <code>decide</code>)
+          with no recorded sub-premises.
+        </p>
+      </div>
+
+      <div class="tab-content" id="content3">
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
+          Cross-module dependency traffic reveals which areas of mathematics are most inter-dependent.
+          Algebra is the dominant sink: Analysis, RingTheory, LinearAlgebra, and NumberTheory all
+          flow heavily into it.
+        </p>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Analysis→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1a56db"></div></div><div class="bar-val">11,866</div></div>
+          <div class="bar-row"><div class="bar-label">RingTheory→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:97%;background:#1a56db"></div></div><div class="bar-val">11,555</div></div>
+          <div class="bar-row"><div class="bar-label">LinearAlg→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:#0891b2"></div></div><div class="bar-val">6,840</div></div>
+          <div class="bar-row"><div class="bar-label">NumberTh→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:#0891b2"></div></div><div class="bar-val">6,168</div></div>
+          <div class="bar-row"><div class="bar-label">Analysis→Data</div><div class="bar-track"><div class="bar-fill" style="width:43%;background:#059669"></div></div><div class="bar-val">5,095</div></div>
+          <div class="bar-row"><div class="bar-label">Algebra→Data</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:#059669"></div></div><div class="bar-val">5,017</div></div>
+          <div class="bar-row"><div class="bar-label">MeasureTheory→Data</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:#059669"></div></div><div class="bar-val">5,009</div></div>
+          <div class="bar-row"><div class="bar-label">Topology→Data</div><div class="bar-track"><div class="bar-fill" style="width:38%;background:#7c3aed"></div></div><div class="bar-val">4,550</div></div>
+          <div class="bar-row"><div class="bar-label">Analysis→Topology</div><div class="bar-track"><div class="bar-fill" style="width:38%;background:#7c3aed"></div></div><div class="bar-val">4,534</div></div>
+          <div class="bar-row"><div class="bar-label">Analysis→Order</div><div class="bar-track"><div class="bar-fill" style="width:36%;background:#d97706"></div></div><div class="bar-val">4,226</div></div>
+          <div class="bar-row"><div class="bar-label">MeasureTheory→Order</div><div class="bar-track"><div class="bar-fill" style="width:34%;background:#d97706"></div></div><div class="bar-val">4,061</div></div>
+          <div class="bar-row"><div class="bar-label">Topology→Order</div><div class="bar-track"><div class="bar-fill" style="width:34%;background:#d97706"></div></div><div class="bar-val">4,055</div></div>
+          <div class="bar-row"><div class="bar-label">MeasureTheory→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:31%;background:#dc2626"></div></div><div class="bar-val">3,635</div></div>
+          <div class="bar-row"><div class="bar-label">NumberTh→Data</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:#dc2626"></div></div><div class="bar-val">3,262</div></div>
+          <div class="bar-row"><div class="bar-label">Data→Algebra</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:#dc2626"></div></div><div class="bar-val">3,253</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ NAMED THEOREMS -->
+<section class="section" id="named">
+  <div class="section-tag">Results · Named Theorems</div>
+  <h2>Which Named Theorems Matter Most?</h2>
+  <p class="lead">
+    We identify theorems named after mathematicians using two independent signals,
+    then measure whether they are structurally more important than unnamed results.
+    The answer is yes — strongly.
+  </p>
+
+  <div class="callout">
+    <strong>de Morgan's laws</strong> (<code>not_and_or</code>) top the named-theorem rankings
+    with an in-degree of <strong>113</strong> — cited by 113 other proofs. They're followed by
+    the Squeeze theorem (18), Monotone Convergence (16), and the Binomial theorem (16).
+  </div>
+
+  <!-- Effect sizes -->
+  <h3 style="margin: 2rem 0 0.5rem; font-size: 1rem; color: var(--navy);">
+    Statistical Effect Sizes: Named vs. Unnamed Theorems
+    <span class="unique-badge">★ Novel result</span>
+  </h3>
+  <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem;">
+    Rank-biserial correlation <em>r</em> from Mann-Whitney U tests. Positive = named theorems
+    score higher. All results significant at p &lt; 0.001.
+  </p>
+  <div class="effect-grid">
+    <div class="effect-card">
+      <div class="effect-r effect-pos">+0.51</div>
+      <div class="effect-metric">In-degree (citations)</div>
+      <div class="effect-sig">Large effect · p &lt; 0.001</div>
+    </div>
+    <div class="effect-card">
+      <div class="effect-r effect-pos">+0.38</div>
+      <div class="effect-metric">Out-degree (dependencies)</div>
+      <div class="effect-sig">Medium effect · p &lt; 0.001</div>
+    </div>
+    <div class="effect-card">
+      <div class="effect-r effect-pos">+0.46</div>
+      <div class="effect-metric">Tactic steps</div>
+      <div class="effect-sig">Large effect · p &lt; 0.001</div>
+    </div>
+    <div class="effect-card">
+      <div class="effect-r effect-pos">+0.44</div>
+      <div class="effect-metric">Code lines</div>
+      <div class="effect-sig">Large effect · p &lt; 0.001</div>
+    </div>
+  </div>
+
+  <!-- Named theorems table -->
+  <h3 style="margin: 2rem 0 0.5rem; font-size: 1rem; color: var(--navy);">
+    Top Named Theorems by In-degree (docstring signal)
+  </h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Common Name</th><th>Lean Identifier</th><th>Area</th><th class="td-right">In-degree</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>de Morgan's laws</td><td class="td-name">not_and_or</td><td>Logic</td><td class="td-right td-bold">113</td></tr>
+        <tr><td>2</td><td>Squeeze theorem</td><td class="td-name">tendsto_of_tendsto_of_tendsto_of_le_of_le</td><td>Topology</td><td class="td-right td-bold">18</td></tr>
+        <tr><td>3</td><td>Monotone convergence / Beppo-Levi</td><td class="td-name">MeasureTheory.lintegral_iSup</td><td>MeasureTheory</td><td class="td-right">16</td></tr>
+        <tr><td>4</td><td>Binomial theorem</td><td class="td-name">add_pow</td><td>Data</td><td class="td-right">16</td></tr>
+        <tr><td>5</td><td>Lipschitz continuous</td><td class="td-name">LipschitzWith</td><td>Topology</td><td class="td-right">16</td></tr>
+        <tr><td>6</td><td>Krull's theorem</td><td class="td-name">Ideal.exists_le_maximal</td><td>RingTheory</td><td class="td-right">15</td></tr>
+        <tr><td>7</td><td>Squeeze theorem (variant)</td><td class="td-name">tendsto_of_tendsto_of_tendsto_of_le_of_le'</td><td>Topology</td><td class="td-right">12</td></tr>
+        <tr><td>8</td><td>Bézout's lemma</td><td class="td-name">Nat.gcd_eq_gcd_ab</td><td>Data</td><td class="td-right">11</td></tr>
+        <tr><td>9</td><td>Extreme value theorem</td><td class="td-name">IsCompact.exists_isMaxOn</td><td>Topology</td><td class="td-right">10</td></tr>
+        <tr><td>10</td><td>Cantor's theorem</td><td class="td-name">Cardinal.cantor</td><td>SetTheory</td><td class="td-right">9</td></tr>
+        <tr><td>11</td><td>Integration by parts</td><td class="td-name">intervalIntegral.integral_mul_deriv_eq_deriv_mul</td><td>MeasureTheory</td><td class="td-right">8</td></tr>
+        <tr><td>12</td><td>Dominated convergence</td><td class="td-name">MeasureTheory.tendsto_integral_of_dominated_convergence</td><td>MeasureTheory</td><td class="td-right">7</td></tr>
+        <tr><td>13</td><td>Rearrangement inequality</td><td class="td-name">mul_add_mul_le_mul_add_mul</td><td>Algebra</td><td class="td-right">6</td></tr>
+        <tr><td>14</td><td>Hölder inequality</td><td class="td-name">NNReal.inner_le_Lp_mul_Lq</td><td>Analysis</td><td class="td-right">6</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Named theorem area distribution -->
+  <h3 style="margin: 2rem 0 0.5rem; font-size: 1rem; color: var(--navy);">Named Theorem Counts by Area</h3>
+  <div class="bar-chart">
+    <div class="bar-row"><div class="bar-label">Analysis</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1a56db"></div></div><div class="bar-val">270</div></div>
+    <div class="bar-row"><div class="bar-label">MeasureTheory</div><div class="bar-track"><div class="bar-fill" style="width:54%;background:#0891b2"></div></div><div class="bar-val">147</div></div>
+    <div class="bar-row"><div class="bar-label">Algebra</div><div class="bar-track"><div class="bar-fill" style="width:29%;background:#059669"></div></div><div class="bar-val">79</div></div>
+    <div class="bar-row"><div class="bar-label">Topology</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:#059669"></div></div><div class="bar-val">75</td></div>
+    <div class="bar-row"><div class="bar-label">Combinatorics</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#7c3aed"></div></div><div class="bar-val">67</div></div>
+    <div class="bar-row"><div class="bar-label">NumberTheory</div><div class="bar-track"><div class="bar-fill" style="width:16%;background:#d97706"></div></div><div class="bar-val">43</div></div>
+    <div class="bar-row"><div class="bar-label">Probability</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:#dc2626"></div></div><div class="bar-val">32</div></div>
+    <div class="bar-row"><div class="bar-label">RingTheory</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:#dc2626"></div></div><div class="bar-val">31</div></div>
+    <div class="bar-row"><div class="bar-label">GroupTheory</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:#475569"></div></div><div class="bar-val">28</div></div>
+    <div class="bar-row"><div class="bar-label">LinearAlgebra</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:#475569"></div></div><div class="bar-val">27</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════════════════════════════════════════ STRUCTURE -->
+<div class="section-alt" id="structure">
+<div>
+  <div class="section-tag">Results · Graph Structure</div>
+  <h2>The Shape of Mathematical Knowledge</h2>
+  <p class="lead">
+    Despite hundreds of transitive dependencies, proof chains in Mathlib are
+    surprisingly shallow. Even the most complex theorems have longest chains
+    of only 10–15 steps — a remarkable property of formal mathematics.
+  </p>
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <h3>Shallow Chains</h3>
+      <p>
+        <code>PadicInt.norm_int_lt_one_iff_dvd</code> has <strong>195 transitive
+        dependencies</strong> yet its longest chain is only <strong>12 steps</strong>.
+        Formal proofs are wide, not deep.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌳</div>
+      <h3>87% Primitive Leaves</h3>
+      <p>
+        644,656 declarations have no outgoing edges — proved by automation
+        (<code>omega</code>, <code>simp</code>, <code>decide</code>) with no
+        recorded sub-lemmas. They form the vast forest floor of formal math.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧲</div>
+      <h3>Algebra is the Attractor</h3>
+      <p>
+        Analysis, RingTheory, LinearAlgebra, and NumberTheory all flow into Algebra
+        at 3,000–12,000 edges each. It's the gravitational center of Mathlib's
+        dependency structure.
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ ESSAY -->
+<section class="section" id="essay">
+  <div class="section-tag">Broader Context</div>
+  <h2>Mathematics in the Age of Formal Verification</h2>
+  <p class="lead">
+    Why does mapping the structure of formal proofs matter beyond the library itself?
+    The essay below situates this project in the emerging landscape of AI-assisted
+    theorem proving, automated conjecture generation, and the future of mathematical knowledge.
+  </p>
+  <div class="essay-box">
+    <div class="essay-icon">📝</div>
+    <div>
+      <h3>Essay: Formal Mathematics and the Knowledge Graph Revolution</h3>
+      <p>
+        This project grew from a conviction that formal proof libraries like Mathlib are not
+        just verification tools — they are the first machine-readable maps of mathematical
+        knowledge, with graph structure that encodes centuries of mathematical intuition.
+        Understanding which theorems are truly foundational, how mathematical areas interlock,
+        and what distinguishes named theorems from the vast anonymous sea of lemmas, has
+        implications for AI systems that reason about mathematics, for curriculum design,
+        and for how we understand the sociology of mathematical discovery.
+      </p>
+      <a class="btn btn-primary" href="essay.html" style="margin-top:1rem;display:inline-flex;">
+        Read Full Essay →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <div style="margin-bottom: 0.5rem; font-weight: 700; color: #e2e8f0; font-size: 1rem;">
+    Mathlib Atlas
+  </div>
+  <div>
+    Built with <a href="https://duckdb.org">DuckDB</a> ·
+    Data from <a href="https://huggingface.co/datasets/mathlib-initiative/mathlib-types">mathlib-types</a>
+    and <a href="https://leandojo.org">LeanDojo</a> ·
+    <a href="https://github.com/MatthewBhattacharya/mathlib-atlas">Source on GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essay — Mathlib Atlas</title>
+  <style>
+    :root {
+      --navy: #0f1f3d; --blue: #1a56db;
+      --text: #1e293b; --muted: #64748b;
+      --border: #e2e8f0; --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); }
+    nav {
+      background: var(--navy); padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { color: #fff; font-weight: 700; font-family: system-ui; text-decoration: none; }
+    .nav-brand span { color: #60a5fa; }
+    .nav-back { color: #94a3b8; font-family: system-ui; font-size: 0.88rem; text-decoration: none; }
+    .nav-back:hover { color: #fff; }
+    .essay-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .essay-tag {
+      font-family: system-ui; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue);
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.25; margin-bottom: 1rem; color: var(--navy); }
+    .byline { font-family: system-ui; font-size: 0.85rem; color: var(--muted); margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; color: #334155; }
+    h2 { font-size: 1.25rem; margin: 2.5rem 0 0.75rem; color: var(--navy); }
+    .placeholder-notice {
+      background: #fefce8; border: 1px solid #fde68a; border-radius: 8px;
+      padding: 1.25rem 1.5rem; margin-bottom: 2rem;
+      font-family: system-ui; font-size: 0.88rem; color: #92400e;
+    }
+    footer { background: var(--navy); color: #94a3b8; text-align: center; padding: 2rem; font-family: system-ui; font-size: 0.85rem; }
+    footer a { color: #60a5fa; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span>Mathlib</span> Atlas</a>
+  <a class="nav-back" href="index.html">← Back to Atlas</a>
+</nav>
+
+<div class="essay-wrap">
+  <div class="essay-tag">Essay</div>
+  <h1>Formal Mathematics and the Knowledge Graph Revolution</h1>
+  <div class="byline">Mathlib Atlas Project · 2026</div>
+
+  <div class="placeholder-notice">
+    📝 <strong>Essay coming soon.</strong> This page will contain the full essay on how
+    formal proof libraries fit into the broader developments of mathematics and AI.
+    Paste the essay text into <code>docs/essay.html</code> to publish it.
+  </div>
+
+  <p>
+    [Your essay will appear here. Replace this placeholder by editing
+    <code>docs/essay.html</code> and removing the notice above.]
+  </p>
+</div>
+
+<footer>
+  <a href="index.html">← Mathlib Atlas</a>
+</footer>
+
+</body>
+</html>

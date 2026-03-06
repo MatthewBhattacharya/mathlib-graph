@@ -1,0 +1,18 @@
+[project]
+name = "mathlib-atlas"
+version = "0.1.0"
+description = "Statistical analysis of the Mathlib proof dependency graph"
+requires-python = ">=3.12"
+dependencies = [
+    "polars>=1.0",
+    "duckdb>=1.0",
+    "huggingface-hub>=0.20",
+    "tqdm>=4.0",
+    "requests>=2.31",
+    "pyarrow>=14.0",
+    "ijson>=3.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
