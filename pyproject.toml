@@ -1,5 +1,5 @@
 [project]
-name = "mathlib-metaanalysis"
+name = "mathlib-atlas"
 version = "0.1.0"
 description = "Statistical analysis of the Mathlib proof dependency graph"
 requires-python = ">=3.12"

@@ -106,7 +106,7 @@ def main() -> None:
     # ── Fetch files from GitHub ───────────────────────────────────────────────
     print(f"\nFetching {len(by_file):,} .lean files from GitHub …")
     session = requests.Session()
-    session.headers["User-Agent"] = "mathlib-metaanalysis/1.0"
+    session.headers["User-Agent"] = "mathlib-atlas/1.0"
 
     file_cache: dict[str, list[str]] = {}
     fetch_errors = 0

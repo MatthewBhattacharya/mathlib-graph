@@ -1,5 +1,5 @@
 """
-fetch.py — Download raw datasets for Mathlib Metaanalysis.
+fetch.py — Download raw datasets for Mathlib Atlas.
 
 Sources:
   1. mathlib-initiative/mathlib-types  (HuggingFace, Parquet)
@@ -185,7 +185,7 @@ def fetch_leandojo(force: bool = False) -> None:
 def main() -> None:
     import argparse
 
-    parser = argparse.ArgumentParser(description="Fetch Mathlib Metaanalysis raw datasets")
+    parser = argparse.ArgumentParser(description="Fetch Mathlib Atlas raw datasets")
     parser.add_argument("--force", action="store_true", help="Re-download even if already present")
     parser.add_argument(
         "--only",
