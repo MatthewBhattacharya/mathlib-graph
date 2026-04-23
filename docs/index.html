@@ -343,10 +343,9 @@
   <div class="section-tag">Background</div>
   <h2>What is Mathlib Atlas?</h2>
   <p class="lead">
-    Mathlib is the world's largest library of formally verified mathematics, written in Lean 4.
-    Every theorem in Mathlib has been checked by a proof assistant down to foundational axioms —
-    making it a uniquely trustworthy dataset for studying how mathematics is actually structured.
-    Proof formalization libraries like mathlib provide an exciting array of new possibilities, including having a centralized locus of verified mathematical knowledge, training data for LLMs and proof formalizers. These developments bring to the forefront old questions in a new format regarding what mathematics is and how it is practiced and taught. Fortunately, I think that libraries of formalized theorems can help us gain empirical evidence towards answering these questions more satisfactorily. This project is a very small step into what I believe will be a field of increasing importance, namely mathematical metaanalysis.   
+    Mathlib is a library of formally verified mathematics, written in Lean 4.
+    Proof formalization libraries like mathlib provide an exciting array of new possibilities, including having a centralized locus of verified mathematical knowledge, training data for LLMs and proof formalizers. These developments bring to the forefront old questions in a new format regarding what mathematics is and how it is practiced and taught. Fortunately, I think that libraries of formalized theorems can help us gain empirical evidence towards answering these questions more satisfactorily. Mathlib atlas is a very small step into what I believe will be a field of increasing importance, namely mathematical metaanalysis. 
+    This field analyzes the structure of mathematics as a whole, similar to how scientific metaanalysis synthesizes many relevant studies and allows one to see larger trends which aren't apparent from the ground.
   </p>
   <div class="card-grid card-grid-3">
     <div class="card">
@@ -357,7 +356,7 @@
     <div class="card">
       <div class="card-icon">📊</div>
       <h3>Statistical Analysis</h3>
-      <p>We compute in-degree, out-degree, hub scores, longest dependency chains, and BFS depths — then correlate these with proof complexity metrics.</p>
+      <p>We compute in-degree, out-degree, hub scores, longest dependency chains and other stats, then correlate these with proof complexity metrics.</p>
     </div>
     <div class="card">
       <div class="card-icon">🏷️</div>
@@ -454,7 +453,7 @@
 
   <div class="callout">
     <strong>mul_comm</strong> (commutativity of multiplication) is cited by
-    <strong>1,462</strong> other proofs — more than any other result in all of Mathlib.
+    <strong>1,462</strong> other proofs.
     The top 5 are all basic ring axioms, appearing more often than any named theorem
     like Cauchy's or Fermat's.
   </div>
@@ -592,12 +591,11 @@
   <p class="lead">
     We identify theorems named after mathematicians using two independent signals,
     then measure whether they are structurally more important than unnamed results.
-    The answer is yes — strongly.
   </p>
 
   <div class="callout">
     <strong>de Morgan's laws</strong> (<code>not_and_or</code>) top the named-theorem rankings
-    with an in-degree of <strong>113</strong> — cited by 113 other proofs. They're followed by
+    with an in-degree of <strong>113</strong>, cited by 113 other proofs. They're followed by
     the Squeeze theorem (18), Monotone Convergence (16), and the Binomial theorem (16).
   </div>
 
@@ -686,7 +684,7 @@
   <p class="lead">
     Despite hundreds of transitive dependencies, proof chains in Mathlib are
     surprisingly shallow. Even the most complex theorems have longest chains
-    of only 10–15 steps (again this is partly due to the limitation in detecting dependency between very simple lemmas).
+    of only 10-15 steps (again this is partly due to the limitation in detecting dependency between very simple lemmas).
   </p>
   <div class="card-grid card-grid-3">
     <div class="card">
@@ -695,16 +693,16 @@
       <p>
         <code>PadicInt.norm_int_lt_one_iff_dvd</code> has <strong>195 transitive
         dependencies</strong> yet its longest chain is only <strong>12 steps</strong>.
-        Formal proofs are wide, not deep.
+        Formal proofs are wide, not deep (again partly due to difficulty detecting simple lemma dependence).
       </p>
     </div>
     <div class="card">
       <div class="card-icon">🌳</div>
       <h3>87% Primitive Leaves</h3>
       <p>
-        644,656 declarations have no outgoing edges — proved by automation
+        644,656 declarations have no outgoing edges, proved by automation
         (<code>omega</code>, <code>simp</code>, <code>decide</code>) with no
-        recorded sub-lemmas. They form the vast forest floor of formal math.
+        recorded sub-lemmas.
       </p>
     </div>
     <div class="card">
@@ -712,8 +710,7 @@
       <h3>Algebra is the Attractor</h3>
       <p>
         Analysis, RingTheory, LinearAlgebra, and NumberTheory all flow into Algebra
-        at 3,000–12,000 edges each. It's the gravitational center of Mathlib's
-        dependency structure.
+        at 3,000-12,000 edges each.
       </p>
     </div>
   </div>
@@ -734,13 +731,8 @@
     <div>
       <h3>Essay: Framing the New Mathematical Paradigm</h3>
       <p>
-        This project grew from a conviction that formal proof libraries like Mathlib are not
-        just verification tools — they are the first machine-readable maps of mathematical
-        knowledge, with graph structure that encodes centuries of mathematical intuition.
-        Understanding which theorems are truly foundational, how mathematical areas interlock,
-        and what distinguishes named theorems from the vast anonymous sea of lemmas, has
-        implications for AI systems that reason about mathematics, for curriculum design,
-        and for how we understand the sociology of mathematical discovery.
+        Formal proof libraries like Mathlib are not
+        just verification tools, they have broader implications about how people think about and relate to mathematics. This essay has some preliminary thoughts.
       </p>
       <a class="btn btn-primary" href="https://matthewbhattacharya.substack.com/p/framing-the-new-mathematical-paradigm" style="margin-top:1rem;display:inline-flex;">
         Read Full Essay →
