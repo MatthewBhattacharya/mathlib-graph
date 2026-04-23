@@ -371,8 +371,7 @@
   <div class="section-tag">Methods</div>
   <h2>Data Pipeline</h2>
   <p class="lead">
-    No Lean installation required. We combine two public datasets into a single DuckDB
-    knowledge base, then run the entire analysis in Python.
+    In case you want to play around with the data, this section describes the back-end.
   </p>
 
   <div class="pipeline">
@@ -514,8 +513,7 @@
 
       <div class="tab-content" id="content2">
         <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
-          <strong>Primitive concepts</strong> are declarations with no outgoing dependency edges —
-          leaves of the DAG. (This is partly determined by how sensitive the dependency generator is, determining line by line 
+          <strong>Primitive concepts</strong> are declarations with no outgoing dependency edges. (This is partly determined by how sensitive the dependency generator is, determining line by line 
           dependency for term mode proofs was not that easy and could be made to detect more dependencies.)
         </p>
         <div class="table-wrap">
@@ -548,15 +546,13 @@
           </table>
         </div>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:0.75rem;">
-          644,656 of 738,240 declarations (87%) are primitive in this sense —
-          proved by automation (<code>omega</code>, <code>simp</code>, <code>decide</code>)
-          with no recorded sub-premises.
+          644,656 of 738,240 declarations (87%) are primitive (<code>omega</code>, <code>simp</code>, <code>decide</code>)
         </p>
       </div>
 
       <div class="tab-content" id="content3">
         <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
-          Cross-module dependency traffic reveals which areas of mathematics are most inter-dependent.
+          Cross-module dependency traffic analyzes which dependencies between different areas of math.
           Algebra is the dominant sink: Analysis, RingTheory, LinearAlgebra, and NumberTheory all
           flow heavily into it.
         </p>
@@ -683,7 +679,7 @@
   <p class="lead">
     Despite hundreds of transitive dependencies, proof chains in Mathlib are
     surprisingly shallow. Even the most complex theorems have longest chains
-    of only 10-15 steps (again this is partly due to the limitation in detecting dependency between very simple lemmas).
+    of only 10-15 steps (this is partly due to the limitation in detecting dependency between very simple lemmas).
   </p>
   <div class="card-grid card-grid-3">
     <div class="card">
@@ -699,9 +695,7 @@
       <div class="card-icon">🌳</div>
       <h3>87% Primitive Leaves</h3>
       <p>
-        644,656 declarations have no outgoing edges, proved by automation
-        (<code>omega</code>, <code>simp</code>, <code>decide</code>) with no
-        recorded sub-lemmas.
+        644,656 declarations have no outgoing edges
       </p>
     </div>
     <div class="card">
@@ -721,9 +715,7 @@
   <div class="section-tag">Broader Context</div>
   <h2>Mathematics in the Age of Formal Verification</h2>
   <p class="lead">
-    Why does mapping the structure of formal proofs matter beyond the library itself?
-    The essay below situates this project in the emerging landscape of AI-assisted
-    theorem proving, automated conjecture generation, and the future of mathematical knowledge.
+    The essay below sketches some implications that automated formal verification might have.
   </p>
   <div class="essay-box">
     <div class="essay-icon">📝</div>
